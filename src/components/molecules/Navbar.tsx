@@ -5,6 +5,7 @@ import Link from "next/link";
 import Icon from "@/components/atoms/Icon";
 import {usePathname} from "next/navigation";
 import Button from "@/components/atoms/Button";
+import {signIn, signOut, useSession} from "next-auth/react";
 
 const menu = [
   {
@@ -26,9 +27,10 @@ const menu = [
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   const handleClickSignIn = (e: React.MouseEvent<HTMLButtonElement>) => {
-    
+    session ? signOut() : signIn();
   }
 
   return (
@@ -49,8 +51,12 @@ const Navbar = () => {
             );
           })}
         </ul>
-        <Button name='Sign In' className='rounded-md bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300 p-1' onClick={handleClickSignIn}>
-          {'Sign In'}
+        <Button
+          name='Sign In'
+          className='rounded-md bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300 p-1'
+          onClick={handleClickSignIn}
+        >
+          {session ? 'Sign Out' : 'Sign In'}
         </Button>
       </nav>
     </div>
