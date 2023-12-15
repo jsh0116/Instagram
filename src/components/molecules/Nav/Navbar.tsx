@@ -2,15 +2,15 @@
 
 import React from 'react';
 import Link from "next/link";
-import Icon from "@/components/atoms/Icon";
 import {usePathname} from "next/navigation";
-import Button from "@/components/atoms/Button";
 import {signIn, signOut, useSession} from "next-auth/react";
+import {Avatar, Icon} from "@/components/atoms/Icon";
+import { DefaultButton } from "@/components/atoms/Button";
 
 const menu = [
   {
     href: '/',
-    icon: <Icon type='home' />,
+    icon: <Icon type='home' className={'justify-center'} />,
     clickedIcon: <Icon type='home' isFill />,
   },
   {
@@ -28,6 +28,7 @@ const menu = [
 const Navbar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
+  const user = session?.user;
 
   const handleClickSignIn = (e: React.MouseEvent<HTMLButtonElement>) => {
     session ? signOut() : signIn();
@@ -38,8 +39,8 @@ const Navbar = () => {
       <Link href='/'>
         <h1 className="text-2xl font-bold p-4">Instagram</h1>
       </Link>
-      <nav className='flex flex-row justify-center items-center gap-3.5'>
-        <ul className='flex gap-3.5'>
+      <nav className='flex flex-row justify-center gap-3.5'>
+        <ul className='flex gap-3.5 items-center'>
           {menu.map((item) => {
             const { href, icon, clickedIcon } = item;
             return (
@@ -50,14 +51,20 @@ const Navbar = () => {
               </li>
             );
           })}
+          {user && (
+            <li>
+              <Link href={`/user/${user.username}`}>
+                <Avatar image={user.image}/>
+              </Link>
+            </li>
+          )}
         </ul>
-        <Button
+        <DefaultButton
           name='Sign In'
-          className='rounded-md bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300 p-1'
           onClick={handleClickSignIn}
         >
           {session ? 'Sign Out' : 'Sign In'}
-        </Button>
+        </DefaultButton>
       </nav>
     </div>
   );
