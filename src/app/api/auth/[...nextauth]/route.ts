@@ -14,6 +14,7 @@ const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/signin'
   },
+  secret: process.env.AUTH_SECRET,
   callbacks: {
     async signIn({ user: { id, name, image, email } }) {
       if (!email) {

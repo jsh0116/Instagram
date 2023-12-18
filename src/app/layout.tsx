@@ -24,7 +24,8 @@ export default function RootLayout({
           <header className='sticky border-b'>
             <Navbar />
           </header>
-          <main>{children}</main>
+          {children}
+
         </AuthContext>
       </body>
     </html>

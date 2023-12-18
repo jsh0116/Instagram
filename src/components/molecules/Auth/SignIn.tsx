@@ -13,14 +13,14 @@ const SignIn = ({ providers, callbackUrl = '/' }: Props) => {
     <>
       {Object.values(providers).map(({ id, name}) => {
         return (
-            <DefaultButton
-              key={name}
-              onClick={() => signIn(id, { callbackUrl })}
-              size={"big"}
-            >
-              {`Sign in with ${name}`}
-            </DefaultButton>
-          );
+          <DefaultButton
+            key={name}
+            onClick={() => signIn(id, { callbackUrl })}
+            size={"big"}
+          >
+            {`Sign in with ${name}`}
+          </DefaultButton>
+        );
       })}
     </>
   )
