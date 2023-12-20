@@ -10,11 +10,11 @@ interface Props {
 const Avatar = ({ image, size = 'small', highlight = false }: Props) => {
 
   const getContainerStyle = () => {
-    const baseStyle = 'rounded-full';
+    const baseStyle = 'rounded-full flex justify-center items-center';
     const highlightStyle = highlight
       ? 'bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300'
       : '';
-    const sizeStyle = size === 'small' ? 'w-9 h-9' : 'w-[68px] h-[68px]';
+    const sizeStyle = size === 'small' ? 'w-10 h-10' : 'w-[68px] h-[68px]';
     return `${baseStyle} ${highlightStyle} ${sizeStyle}`;
   }
 
